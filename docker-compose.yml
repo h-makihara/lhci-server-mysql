@@ -1,0 +1,27 @@
+version: '3.3'
+
+services:
+  lhci-server:
+    build:
+      context: ./lhci-server
+      dockerfile: Dockerfile
+    container_name: lhci-server
+    networks:
+      - web 
+    ports: 
+      - 5000:5000
+    volumes:
+      - ./lhci-server/data:/data
+    tty: true
+  lhci-db:
+    build:
+      context: ./mysql
+      dockerfile: Dockerfile
+    container_name: lhci-db
+    ports: 
+      - 3306:3306
+    tty: true
+
+networks:
+  web:
+    external: true
